@@ -33,7 +33,13 @@ class ThresholdDetectController(DetectorGateway):
         :param frame: A frame for searching for objects.
         :return: Mask image for prediction
         """
-        return frame.image  # TODO preprocessing, just a stub
+        # TODO add blur, contrast and erosion
+        image = frame.image
+        thresholded_image = cv2.adaptiveThreshold(
+            image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2
+        )
+
+        return thresholded_image
 
     @staticmethod
     def _form_detection_list(
