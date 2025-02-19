@@ -15,6 +15,7 @@ class ThresholdDetectController(DetectorGateway):
     """
     Detector which use threshold for detection of objects with necessary preprocessing of frames.
     """
+
     def __init__(self, detection_cfg: dict) -> None:
         """
         :param detection_cfg: Dictionary with config info for detector.
