@@ -1,17 +1,20 @@
 from dataclasses import dataclass
-from typing import List
+from typing import Dict, Tuple
 
 import numpy as np
 
 
 @dataclass
 class DetectionDto:
-    bounding_box: tuple  # (x1, y1, x2, y2)
+    bbox: Dict[
+        str, int
+    ]  # {"x": x, "y": y, "w": width, "h": height} - x, y for the top-left point
+    area: int  # Area of an object
+    centroids: Tuple[int, int]  # x and y coordinate of the center of mass of an object
+    frame_id: int  # id of the corresponding frame
 
 
 @dataclass
 class FrameDto:
-    frame_number: int
-    timestamp: float
-    image_any: np.ndarray
-    detections: List[DetectionDto]
+    frame_id: int  # id of the frame
+    image: np.ndarray  # Image as np.array
