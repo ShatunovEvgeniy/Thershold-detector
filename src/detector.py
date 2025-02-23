@@ -34,7 +34,7 @@ class ThresholdDetectController(DetectorGateway):
         :return: Mask image for prediction
         """
         # TODO add blur, contrast and erosion
-        image = frame.image
+        image = frame.image.copy()
         thresholded_image = cv2.adaptiveThreshold(
             image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2
         )
