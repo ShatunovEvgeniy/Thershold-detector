@@ -33,11 +33,22 @@ class ThresholdDetectController(DetectorGateway):
         :param frame: A frame for searching for objects.
         :return: Mask image for prediction
         """
-        # TODO add blur, contrast and erosion
         image = frame.image.copy()
+
+        # 1. Denoising (Median Blur)
+        median_blurred_image = cv2.medianBlur(image, 5)
+        cv2.imshow("Blured", median_blurred_image)
+
+        # 2. Thresholding (Adaptive Thresholding)
         thresholded_image = cv2.adaptiveThreshold(
-            image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2
+            median_blurred_image,
+            255,
+            cv2.ADAPTIVE_THRESH_MEAN_C,
+            cv2.THRESH_BINARY,
+            13,
+            2,
         )
+        cv2.imshow("Threshold", thresholded_image)
 
         return thresholded_image
 
