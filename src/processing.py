@@ -10,7 +10,7 @@ def draw_bboxes(
     detections: List[DetectionDto],
     frame: FrameDto,
     color: int = 255,
-    thickness: int = 2,
+    thickness: int = 1,
 ) -> np.ndarray:
     """
     Draws bounding boxes on a frame based on a list of detections.
