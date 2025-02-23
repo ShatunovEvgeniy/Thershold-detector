@@ -1,5 +1,6 @@
 /architecture
 /.idea
+/video/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
