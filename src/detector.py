@@ -89,6 +89,7 @@ class ThresholdDetectController(DetectorGateway):
         mask = self._preprocess_frame(frame)
         if not np.any(mask > 0):
             return None
+            print("No detection")
 
         # Find objects
         image = frame.image.copy()
