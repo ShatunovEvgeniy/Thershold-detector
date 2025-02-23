@@ -41,6 +41,7 @@ class ThresholdDetectController(DetectorGateway):
 
         return thresholded_image
 
+    # noinspection PyTypeChecker
     @staticmethod
     def _form_detection_list(
         object_count: int, stats: np.ndarray, centroids: np.ndarray, frame_id: int
