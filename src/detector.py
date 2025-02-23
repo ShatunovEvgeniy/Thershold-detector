@@ -73,28 +73,37 @@ class ThresholdDetectController(DetectorGateway):
 
         return detection_list
 
-    def predict(self, frame: FrameDto) -> List[DetectionDto] | None:
+    def predict(self, frame: FrameDto) -> List[DetectionDto]:
         """
         The method which finds objects on a frame using the threshold method and returns info about detections
         as a list of DetectionDto.
 
         :param frame: A frame for searching for objects.
-        :return: List with detections. None in case of errors.
+        :return: List with detections. [] in case of errors or no detections.
         """
         # Check the frame
-        if frame is None or frame.image.shape != 2 or frame.image.dtype != np.uint8:
-            return None
+        if (
+            frame is None
+            or len(frame.image.shape) != 2
+            or frame.image.dtype != np.uint8
+        ):
+            if frame is None:
+                print("ERROR: Frame is None")
+            if len(frame.image.shape) != 2:
+                print(f"ERROR: Frame shape: {len(frame.image.shape)} != 2")
+            if frame.image.dtype != np.uint8:
+                print(f"ERROR: Frame type is {frame.image.dtype} != np.uint8")
+            return []
 
         # Prepare mask
         mask = self._preprocess_frame(frame)
         if not np.any(mask > 0):
-            return None
             print("No detection")
+            return []
 
         # Find objects
-        image = frame.image.copy()
         object_count, labels, stats, centroids = cv2.connectedComponentsWithStats(
-            image, connectivity=8, ltype=cv2.CCL_DEFAULT
+            mask, connectivity=8
         )
 
         # Form a list
