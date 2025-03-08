@@ -78,7 +78,11 @@ class ThresholdDetectController(DetectorGateway):
             centroids_i = centroids[i, :]
 
             detection = DetectionDto(
-                bbox=bbox, area=area, centroids=centroids_i, frame_id=frame_id
+                bbox=bbox,
+                area=area,
+                centroids=centroids_i,
+                frame_id=frame_id,
+                confidence=1.0,
             )
             detection_list.append(detection)
 

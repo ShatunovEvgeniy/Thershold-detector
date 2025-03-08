@@ -12,6 +12,7 @@ class DetectionDto:
     area: int  # Area of an object
     centroids: Tuple[int, int]  # x and y coordinate of the center of mass of an object
     frame_id: int  # id of the corresponding frame
+    confidence: float  # confidence of a prediction
 
 
 @dataclass
